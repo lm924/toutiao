@@ -26,7 +26,7 @@
 <script>
 
 import '@/style/index.less'
-
+import store from '@/views/store'
 export default {
 
   data () {
@@ -40,8 +40,8 @@ export default {
 
     return {
       loginForm: {
-        mobile: '',
-        code: ''
+        mobile: '13911111111',
+        code: '246810'
       },
       loginRules: {
         mobile: [
@@ -63,21 +63,37 @@ export default {
   },
   methods: {
     submit () {
-      this.$refs.loginForm.validate((valid) => {
-        if (valid) {
-          this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations'
-            , this.submit
-          ).then(res => {
-            //   res响应对象  包含响应主体
-            console.log(res.data)
-            this.$router.push('/')
-          })
-            .catch(() => {
-              this.message.error('手机号或验证码错误')
-            })
-        } else {
-          console.log('error submit!!')
-          return false
+      this.$refs.loginForm.validate(async (valid) => {
+        // promise写法，.then，.catch标志
+
+        // if (valid) {
+        //   this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations'
+        //     , this.loginForm
+        //   ).then(res => {
+        //     //   res响应对象  包含响应主体
+        //     // console.log(res.data)
+        //     // 储存用户信息
+        //     store.setUser(res.data.data)
+        //     // 跳转去首页
+        //     console.log('add')
+
+        //     this.$router.push('/')
+        //   })
+        //     .catch(() => {
+        //       this.message.error('手机号或验证码错误')
+        //     })
+        // } else {
+        //   console.log('error submit!!')
+        //   return false
+        // }
+
+        try {
+          // 结构赋值，是上面的res.data。data
+          const { data: { data } } = await this.$http.post('authorizations', this.loginForm)
+          store.setUser(data)
+          this.$router.push('/')
+        } catch (e) {
+          this.$message.error('手机号或是验证码错误')
         }
       })
     }
@@ -85,8 +101,6 @@ export default {
 
 }
 </script>
-
-// scoped作用域，作用范围，，style仅仅只在当前组件下有用
 
 <style scoped lang="less">
     .container{
