@@ -39,6 +39,42 @@
         </el-form-item>
     </el-form>
        </el-card>
+       <el-card>
+           <div slot="header">
+               根据筛选条件查询到，123条数据
+           </div>
+           <!-- 表格组件 -->
+           <el-table
+      :data="tableData"
+      style="width: 100%">
+      <el-table-column
+        prop="date"
+        label="日期"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="姓名"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="地址">
+      </el-table-column>
+    </el-table>
+<!-- 表格组件 -->
+    <el-table :data="article">
+        <el-table-column label="封面" prop="img"></el-table-column>
+    </el-table>
+    <!-- 分页组件 -->
+    <div >
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          :total="1000">
+        </el-pagination>
+    </div>
+       </el-card>
     </div>
 
 </template>
@@ -58,12 +94,15 @@ export default {
       //   value,label是和上面一样的额意思，，
       channerOptions: [{ value: 1, label: 'js' }],
       //   日期数据
-      dateArr: []
+      dateArr: [],
+      article: [{ img: '123' }]
     }
   }
 }
 </script>
 
-<style>
-
+<style scoped lang="less">
+.el-card{
+    margin-bottom: 20px;
+}
 </style>
