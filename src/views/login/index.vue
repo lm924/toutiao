@@ -26,7 +26,7 @@
 <script>
 
 import '@/style/index.less'
-import store from '@/views/store'
+import store from '@/store'
 export default {
 
   data () {
@@ -63,10 +63,10 @@ export default {
   },
   methods: {
     submit () {
-      this.$refs.loginForm.validate(async (valid) => {
+      this.$refs.loginForm.validate(async valid => {
         // promise写法，.then，.catch标志
 
-        // if (valid) {
+        if (valid) {
         //   this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations'
         //     , this.loginForm
         //   ).then(res => {
@@ -77,23 +77,23 @@ export default {
         //     // 跳转去首页
         //     console.log('add')
 
-        //     this.$router.push('/')
-        //   })
-        //     .catch(() => {
-        //       this.message.error('手机号或验证码错误')
-        //     })
-        // } else {
-        //   console.log('error submit!!')
-        //   return false
-        // }
+          //     this.$router.push('/')
+          //   })
+          //     .catch(() => {
+          //       this.message.error('手机号或验证码错误')
+          //     })
+          // } else {
+          //   console.log('error submit!!')
+          //   return false
 
-        try {
+          try {
           // 结构赋值，是上面的res.data。data
-          const { data: { data } } = await this.$http.post('authorizations', this.loginForm)
-          store.setUser(data)
-          this.$router.push('/')
-        } catch (e) {
-          this.$message.error('手机号或是验证码错误')
+            const { data: { data } } = await this.$http.post('authorizations', this.loginForm)
+            store.setUser(data)
+            this.$router.push('/')
+          } catch (e) {
+            this.$message.error('手机号或是验证码错误')
+          }
         }
       })
     }

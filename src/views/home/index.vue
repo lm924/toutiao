@@ -50,13 +50,13 @@
 
         <el-dropdown>
           <span class="el-dropdown-link">
-            <img src="../../assets/images/avatar.jpg" alt="">
-            用户名称
+            <img :src="photo" alt="">
+            {{name}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>个人设置</el-dropdown-item>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-setting" @click.native="setting()">个人设置</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-unlock" @click.native="logout()">退出登录</el-dropdown-item>
 
           </el-dropdown-menu>
         </el-dropdown>
@@ -73,15 +73,37 @@
 </template>
 
 <script>
+
+import store from '@/store'
+
 export default {
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      // 定义数据，用户名和头像
+      name: '',
+      photo: ''
     }
+  },
+  // 这是一个钩子，
+  created () {
+    // 获取本地用户信息
+    const user = store.getUser()
+    this.name = user.name
+    this.photo = user.photo
   },
   methods: {
     toggleMenu () {
       this.isCollapse = !this.isCollapse
+    },
+    setting () {
+      // click是原生事件，支持原生动事件
+      // 期望  把事件绑定在组件解析后的原生dom上   @click。native
+      this.$ruter.push('/setting')
+    },
+    logout () {
+      store.clearUser()
+      this.$router.push({ name: '/login' })
     }
   }
 }

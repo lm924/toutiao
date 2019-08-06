@@ -1,5 +1,5 @@
 // 配置一个axios  导出
-import store from '@/views/store'
+import store from '@/store'
 import axios from 'axios'
 // 全局挂载的router
 import router from '@/routers'

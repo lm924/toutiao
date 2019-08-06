@@ -5,7 +5,7 @@ import login from '@/views/login'
 import Home from '@/views/home'
 import welcome from '@/views/welcome/welcome.vue'
 import NotFound from '@/views/404/404.vue'
-import store from '../views/store'
+import store from '../store'
 // import axios from '@/axios'
 import Article from '@/views/article'
 Vue.use(VueRouter)
