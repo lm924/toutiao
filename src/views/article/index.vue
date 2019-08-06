@@ -2,10 +2,7 @@
     <div class="container">
        <el-card>
            <div slot="header">
-            <el-breadcrumb separator-class="el-icon-arrow-right">
-                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item>内容管理</el-breadcrumb-item>
-            </el-breadcrumb>
+               <my-bread>内容管理</my-bread>
         </div>
          <!-- //size说明在form参考文档 -->
         <el-form label-width="80px" size="small">
@@ -47,7 +44,9 @@
 </template>
 
 <script>
+import MyBread from '@/components/my-bread.vue'
 export default {
+  components: { MyBread },
   data () {
     return {
       // 筛选项表单，，提交给后台的参数

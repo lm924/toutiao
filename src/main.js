@@ -10,10 +10,13 @@ import router from '@/routers'
 // import axios from 'axios'
 import axios from '@/api'
 
+import myCom from '@/components'
+
 // 控制台提示信息 开发环境来提示  详细一些
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.prototype.$http = axios
+Vue.use(myCom)
 
 // 根实例
 new Vue({
