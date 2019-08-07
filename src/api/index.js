@@ -3,9 +3,20 @@ import store from '@/store'
 import axios from 'axios'
 // 全局挂载的router
 import router from '@/routers'
-
+import JSONBIG from 'json-bigint'
 // 进行配置，，，配置请求头
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
+axios.defaults.transformResponse = [
+  (data) => {
+  // data 是后端的原始数据
+  // 如果没有data后端数据，几号回报错   null也会报错   阻止程序运行
+    try {
+      return JSONBIG.parse(data)
+    } catch (e) {
+      return data
+    }
+  }
+]
 // 这是只能检验一次，有问题
 // axios.defaults.headers = {
 //   Authorization: `Bear ${store.getUser().token}`
@@ -27,7 +38,7 @@ axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
 axios.interceptors.request.use((config) => {
   // 这样是动态拿，，上面是写死的，，登录后不需要刷新就能实时拿到
   config.headers = {
-    Authorization: `Bear ${store.getUser().token}`
+    Authorization: `Bearer ${store.getUser().token}`
   }
   return config
 }, (error) => {
