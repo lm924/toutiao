@@ -8,6 +8,7 @@ import NotFound from '@/views/404/404.vue'
 import store from '../store'
 // import axios from '@/axios'
 import Article from '@/views/article'
+import Image from '@/components/imag/image.vue'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -30,6 +31,9 @@ const router = new VueRouter({
         },
         {
           path: '/article', name: 'article', component: Article
+        },
+        {
+          path: '/image', name: 'image', component: Image
         }
       ]
     },

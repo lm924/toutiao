@@ -16,14 +16,8 @@
                 </el-radio-group>
         </el-form-item>
         <el-form-item label="频道:">
-            <el-select clearable v-model="reqParams.channel_id" placeholder="请选择">
-                <el-option
-                  v-for="item in channelOptions"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id">
-                </el-option>
-            </el-select>
+           <!-- v-model  背后  ：value   @input -->
+            <my-channel v-model="reqParams.channel_id"></my-channel>
         </el-form-item>
         <el-form-item label="日期:">
             <el-date-picker
@@ -129,8 +123,9 @@ export default {
     }
   },
   created () {
-    // 获取下拉信息
-    this.getchannelOptions()
+    // // 获取下拉信息
+    // this.getchannelOptions()
+
     // 获取文章列表
     this.getArticles()
   },
@@ -167,11 +162,11 @@ export default {
       this.reqParams.page = 1
       this.getArticles()
     },
-    async getchannelOptions () {
-      const { data: { data } } = await this.$http.get('channels')
-      // console.log(data)
-      this.channelOptions = data.channels
-    },
+    // async getchannelOptions () {
+    //   const { data: { data } } = await this.$http.get('channels')
+    //   // console.log(data)
+    //   this.channelOptions = data.channels
+    // },
     async getArticles () {
       // sxios  get  传参第二传参是对象{params：指定传参对象}  发请求时自动拼接在地址后
       const { data: { data } } = await this.$http.get('articles', { params: this.reqParams })
